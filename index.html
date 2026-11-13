@@ -12,8 +12,8 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="#" aria-label="IVT Exploratec 2026">
+ <header class="topbar">
+    <a class="brand" id="logoHome" href="#" aria-label="IVT Exploratec 2026">
       <span class="brand-mark">IVT</span>
       <span>IVTEXPLORATEC <b>2026</b></span>
     </a>
@@ -23,18 +23,18 @@
   </header>
 
   <main class="page-shell">
-    <section class="hero">
-      <div class="hero-copy">
-       
-        <h1>Tu opinión también forma parte de la <span>IVT Exploratec.</span></h1>
-        <p>Queremos conocer tu experiencia. Completá esta breve encuesta y ayudanos a seguir creciendo. (Las preguntas no son obligatorias, pero te agradecemos un montón si podés completarlas todas).</p>
-        <div class="hero-meta"><span>⌁</span> IVT Exploratec 2026</div>
-      </div>
-      <div class="hero-art" aria-hidden="true">
-        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
-       
-      </div>
-    </section>
+    <section class="hero" id="heroSection">
+  <div class="hero-copy">
+    <h1>Tu opinión también forma parte de la <span>IVT Exploratec.</span></h1>
+    <p>Queremos conocer tu experiencia. Completá esta breve encuesta y ayudanos a seguir creciendo.</p>
+    <div class="hero-meta"><span>⌁</span> IVT Exploratec 2026</div>
+  </div>
+  <div class="hero-art" aria-hidden="true">
+    <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+    <div class="art-core"></div><span class="art-chip chip-one">INNOVACIÓN</span>
+    <span class="art-chip chip-two">CREATIVIDAD</span><span class="art-chip chip-three">TECNOLOGÍA</span>
+  </div>
+</section>
 
     <section class="survey-layout" id="surveySection">
       <div class="section-intro">
@@ -175,23 +175,60 @@
     <section class="admin-section hidden" id="adminSection">
       <div class="admin-heading">
         <div><span class="step-label">PANEL PRIVADO</span><h2>Estadísticas</h2><p>Respuestas recibidas de IVT Exploratec 2026.</p></div>
-        <button class="secondary-button" id="logoutButton" type="button">Cerrar sesión</button>
+        <div style="display:flex; gap:10px;">
+          <button class="outline-button" id="exportCsv" type="button">↓ Descargar CSV</button>
+          <button class="secondary-button" id="logoutButton" type="button">Cerrar sesión</button>
+        </div>
       </div>
+
       <div class="stats-grid">
         <article class="stat-card"><span>Respuestas recibidas</span><strong id="totalResponses">0</strong><small>Total de encuestas</small></article>
+        <article class="stat-card"><span>Fotografías recibidas</span><strong id="totalPhotos">0</strong><small>Imágenes subidas</small></article>
       </div>
+
       <section class="dashboard-card">
         <div class="dashboard-card-heading"><div><h3>¿Qué destacaron los participantes?</h3><p>Selecciones por tema. Una persona puede elegir varios.</p></div></div>
         <div id="highlightStats" class="bar-list"><p class="muted">Cargando estadísticas...</p></div>
       </section>
+
       <section class="dashboard-card">
-        <div class="dashboard-card-heading"><div><h3>Respuestas individuales</h3><p>Consultá las respuestas y los comentarios.</p></div><button class="outline-button" id="exportCsv" type="button">↓ Descargar CSV</button></div>
-        <div id="responsesList" class="responses-list"><p class="muted">Cargando respuestas...</p></div>
+        <div class="dashboard-card-heading"><div><h3>1. ¿Qué fue lo que más te importó de los proyectos?</h3></div></div>
+        <div id="projectsStats" class="bar-list"><p class="muted">Cargando estadísticas...</p></div>
+      </section>
+
+      <section class="dashboard-card">
+        <div class="dashboard-card-heading"><div><h3>2. Conocimiento de los estudiantes que más te interesó</h3></div></div>
+        <div id="learningStats" class="bar-list"><p class="muted">Cargando estadísticas...</p></div>
+      </section>
+
+      <section class="dashboard-card">
+        <div class="dashboard-card-heading"><div><h3>3. Resolución creativa y robótica aplicada</h3></div></div>
+        <div id="roboticsStats" class="bar-list"><p class="muted">Cargando estadísticas...</p></div>
+      </section>
+
+      <section class="dashboard-card">
+        <div class="dashboard-card-heading"><div><h3>4. Comunicación y expresión oral</h3></div></div>
+        <div id="oralStats" class="bar-list"><p class="muted">Cargando estadísticas...</p></div>
+      </section>
+
+      <section class="dashboard-card">
+        <div class="dashboard-card-heading"><div><h3>5. Gamificación (videojuegos)</h3></div></div>
+        <div id="gamesStats" class="bar-list"><p class="muted">Cargando estadísticas...</p></div>
+      </section>
+
+      <section class="dashboard-card">
+        <div class="dashboard-card-heading"><div><h3>Galería de fotografías</h3><p>Todas las fotos subidas por los visitantes. Hacé clic en descargar para guardarlas.</p></div></div>
+        <div id="photosGallery" class="photos-grid"><p class="muted">Cargando fotografías...</p></div>
+      </section>
+
+      <section class="dashboard-card">
+        <div class="dashboard-card-heading"><div><h3>Mensajes y comentarios</h3><p>Opiniones y sugerencias escritas por los participantes.</p></div></div>
+        <div id="commentsList" class="responses-list"><p class="muted">Cargando comentarios...</p></div>
       </section>
     </section>
   </main>
 
-  <footer><span>IVT EXPLORATEC 2026</span></footer>
+  <footer><span>IVT EXPLORATEC 2026</span><span>Ideas que transforman el futuro.</span></footer>
 
   <div class="modal-backdrop hidden" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
     <div class="login-modal">
@@ -207,6 +244,6 @@
     </div>
   </div>
   <div class="toast hidden" id="toast" role="status"></div>
-  <script type="module" src="app.js?v=4"></script>
+  <script type="module" src="app.js?v=5"></script>
 </body>
 </html>
