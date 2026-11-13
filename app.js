@@ -20,8 +20,6 @@ import {
   onValue
 } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
 
-// 1) REEMPLAZÁ estos valores por los de:
-// Firebase Console > Configuración del proyecto > Tus apps > SDK web.
 const firebaseConfig = {
   apiKey: "AIzaSyDWKx8RIrU5AqknqnRhmD39wT7nBm9LJEk",
   authDomain: "exploratech-cc0ee.firebaseapp.com",
@@ -32,10 +30,6 @@ const firebaseConfig = {
   measurementId: "G-6BBVE9Y2QJ"
 };
 
-// 2) Pegá acá el UID de cada administrador autorizado.
-// Lo encontrás en Firebase Console > Authentication > Users.
-// No alcanza con ocultar el panel desde JavaScript: también hay que
-// proteger Realtime Database mediante sus reglas.
 const ADMIN_UIDS = [
   "GFgSUeMmkUgcWkUMIYWXTqC6vYf1"
 ];
@@ -188,7 +182,6 @@ async function compressPhotoToDataUrl(file) {
   context.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
   bitmap.close?.();
 
-  // JPEG reduce mucho el tamaño para poder guardar la imagen como texto Base64.
   for (const quality of [0.82, 0.75, 0.68, 0.60, 0.52]) {
     const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/jpeg", quality));
     if (blob && blob.size <= MAX_COMPRESSED_PHOTO_BYTES) {
@@ -273,7 +266,6 @@ surveyForm?.addEventListener("submit", async (event) => {
   setButtonLoading(submitButton, true, "Enviando...");
 
   try {
-    // Se crea una clave única para esta respuesta.
     let photoDataUrl = null;
     if (selectedPhoto) {
       showToast("Comprimiendo fotografía...", 5000);
@@ -320,7 +312,6 @@ surveyForm?.addEventListener("submit", async (event) => {
   }
 });
 
-// Permite enviar otra respuesta sin recargar la página.
 $("newResponse")?.addEventListener("click", () => {
   surveyForm?.reset();
   clearPhotoPreview();
@@ -365,7 +356,6 @@ loginForm?.addEventListener("submit", async (event) => {
 
   try {
     await signInWithEmailAndPassword(auth, email, password);
-    // onAuthStateChanged verifica si el UID está autorizado.
   } catch (error) {
     console.error("Error de inicio de sesión:", error);
 
@@ -421,6 +411,7 @@ onAuthStateChanged(auth, async (user) => {
 
 function showAdminPanel(show) {
   $("surveySection")?.classList.toggle("hidden", show);
+  $("heroSection")?.classList.toggle("hidden", show); // Oculta o muestra el banner principal
   $("adminSection")?.classList.toggle("hidden", !show);
 
   if (show) {
@@ -469,9 +460,17 @@ function renderDashboard(responses) {
     .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
 
   $("totalResponses").textContent = entries.length;
+  $("totalPhotos").textContent = entries.filter((e) => e.photoDataUrl).length;
 
   renderHighlightStats(entries);
-  renderResponses(entries);
+  renderSingleChoiceStats(entries, "answer_projects", "projectsStats");
+  renderSingleChoiceStats(entries, "answer_learning", "learningStats");
+  renderSingleChoiceStats(entries, "answer_robotics", "roboticsStats");
+  renderSingleChoiceStats(entries, "answer_oral", "oralStats");
+  renderSingleChoiceStats(entries, "answer_games", "gamesStats");
+
+  renderPhotosGallery(entries);
+  renderCommentsList(entries);
 }
 
 function renderHighlightStats(entries) {
@@ -505,44 +504,88 @@ function renderHighlightStats(entries) {
   `).join("");
 }
 
-function renderResponses(entries) {
-  const container = $("responsesList");
+function renderSingleChoiceStats(entries, fieldKey, containerId) {
+  const container = $(containerId);
   if (!container) return;
 
-  if (!entries.length) {
-    container.innerHTML = '<p class="muted">Todavía no se recibieron encuestas.</p>';
+  const counts = {};
+
+  entries.forEach((entry) => {
+    const value = entry[fieldKey];
+    if (value) {
+      counts[value] = (counts[value] || 0) + 1;
+    }
+  });
+
+  const items = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+  const max = Math.max(1, ...items.map((item) => item[1]));
+
+  if (!items.length) {
+    container.innerHTML = '<p class="muted">Todavía no hay respuestas registradas.</p>';
     return;
   }
 
-  container.innerHTML = entries.map((entry, index) => {
-    const highlights = Array.isArray(entry.highlights)
-      ? entry.highlights.join(", ")
-      : "";
+  container.innerHTML = items.map(([label, count]) => `
+    <div class="bar-row">
+      <span>${escapeHTML(label)}</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:${(count / max) * 100}%"></div>
+      </div>
+      <strong class="bar-count">${count}</strong>
+    </div>
+  `).join("");
+}
 
+function renderPhotosGallery(entries) {
+  const container = $("photosGallery");
+  if (!container) return;
 
-    const photo = entry.photoDataUrl
-      ? `<a href="${escapeHTML(entry.photoDataUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Abrir fotografía de la respuesta">
-           <img class="response-photo" src="${escapeHTML(entry.photoDataUrl)}" alt="Fotografía enviada" loading="lazy">
-         </a>`
-      : "";
+  const entriesWithPhotos = entries.filter((entry) => entry.photoDataUrl);
+
+  if (!entriesWithPhotos.length) {
+    container.innerHTML = '<p class="muted">Todavía no se subieron fotografías.</p>';
+    return;
+  }
+
+  container.innerHTML = entriesWithPhotos.map((entry, index) => {
+    const fileName = entry.photoName
+      ? entry.photoName.replace(/\.[^/.]+$/, "") + ".jpg"
+      : `IVT_Exploratec_foto_${entriesWithPhotos.length - index}.jpg`;
 
     return `
-      <article class="response-item">
-        <div class="response-top">
-          <strong>Respuesta #${entries.length - index}</strong>
+      <div class="photo-card">
+        <a href="${escapeHTML(entry.photoDataUrl)}" target="_blank" rel="noopener noreferrer" title="Ver en tamaño completo">
+          <img src="${escapeHTML(entry.photoDataUrl)}" alt="Fotografía de visitante" loading="lazy">
+        </a>
+        <div class="photo-card-footer">
           <time>${escapeHTML(formatDate(entry.createdAt))}</time>
+          <a class="btn-download-photo" href="${escapeHTML(entry.photoDataUrl)}" download="${escapeHTML(fileName)}">↓ Descargar</a>
         </div>
-        <p class="response-themes"><strong>Destacó:</strong> ${escapeHTML(highlights || "Sin selección")}</p>
-        <p class="response-detail"><strong>Proyectos:</strong> ${escapeHTML(entry.answer_projects || "—")}</p>
-        <p class="response-detail"><strong>Aprendizajes:</strong> ${escapeHTML(entry.answer_learning || "—")}</p>
-        <p class="response-detail"><strong>Robótica:</strong> ${escapeHTML(entry.answer_robotics || "—")}</p>
-        <p class="response-detail"><strong>Expresión oral:</strong> ${escapeHTML(entry.answer_oral || "—")}</p>
-        <p class="response-detail"><strong>Videojuegos:</strong> ${escapeHTML(entry.answer_games || "—")}</p>
-        <p class="response-detail"><strong>Comentarios:</strong> ${escapeHTML(entry.comments || "Sin comentarios")}</p>
-        ${photo}
-      </article>
+      </div>
     `;
   }).join("");
+}
+
+function renderCommentsList(entries) {
+  const container = $("commentsList");
+  if (!container) return;
+
+  const entriesWithComments = entries.filter((entry) => entry.comments && entry.comments.trim().length > 0);
+
+  if (!entriesWithComments.length) {
+    container.innerHTML = '<p class="muted">Todavía no se escribieron comentarios.</p>';
+    return;
+  }
+
+  container.innerHTML = entriesWithComments.map((entry, index) => `
+    <article class="response-item">
+      <div class="response-top">
+        <strong>Comentario #${entriesWithComments.length - index}</strong>
+        <time>${escapeHTML(formatDate(entry.createdAt))}</time>
+      </div>
+      <p class="response-detail">${escapeHTML(entry.comments)}</p>
+    </article>
+  `).join("");
 }
 
 // -------------------------
@@ -590,11 +633,10 @@ $("exportCsv")?.addEventListener("click", () => {
     entry.photoDataUrl ? "Sí" : "No"
   ]);
 
-  // BOM para que Excel interprete correctamente los acentos.
   const csv = "\uFEFF" + [
     headers,
     ...rows
-  ].map((row) => row.map(csvCell).join(";")).join("\r\n");
+  ].map((row) => row.map(csvCell).join(";")).join("\n");
 
   const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
   const url = URL.createObjectURL(blob);
@@ -620,3 +662,14 @@ setPersistence(auth, browserLocalPersistence).catch((error) => {
 });
 
 console.log("IVT Exploratec 2026: app.js cargado.");
+
+$("logoHome")?.addEventListener("click", (event) => {
+  event.preventDefault();
+
+  // Si el usuario es administrador y está viendo el panel, lo oculta y vuelve a mostrar la encuesta y el banner
+  $("adminSection")?.classList.add("hidden");
+  $("surveySection")?.classList.remove("hidden");
+  $("heroSection")?.classList.remove("hidden");
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
