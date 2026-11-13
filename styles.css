@@ -218,3 +218,70 @@ footer span:first-child{font-weight:800;color:var(--navy)}
   footer{padding:19px;gap:12px;font-size:9px}
   footer span:last-child{text-align:right}
 }
+
+/* =========================================================
+   CONTROL DE TAMAÑO DE FOTOGRAFÍAS
+   ========================================================= */
+
+/* =========================================================
+   GALERÍA COMPACTA Y PROPORCIONADA
+   ========================================================= */
+
+/* =========================================================
+   GALERÍA DE FOTOGRAFÍAS (Tamaño estandarizado y mediano)
+   ========================================================= */
+
+.photos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Tarjetas de un tamaño cómodo y estándar */
+  gap: 16px;
+}
+
+.photo-card {
+  border: 1px solid #d3e1f1;
+  border-radius: 8px;
+  background: #fbfdff;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tamaño estándar y fijo para todas las fotos */
+.photo-card img {
+  width: 100% !important;
+  height: 180px !important; /* Altura estandarizada exacta para todas */
+  object-fit: cover;         /* Recorta los excesos sin deformar la imagen */
+  display: block;
+  border-bottom: 1px solid #e1ebf7;
+}
+
+.photo-card-footer {
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.photo-card-footer time {
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.btn-download-photo {
+  background: #eaf3ff;
+  color: var(--blue-dark);
+  border: 1px solid #b8d3f2;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: .15s;
+}
+
+.btn-download-photo:hover {
+  background: #1b5ca5;
+  color: #fff;
+  border-color: #1b5ca5;
+}
