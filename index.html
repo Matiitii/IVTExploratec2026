@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#142b4d">
+  <meta name="description" content="Encuesta de opinión IVT Exploratec 2026">
+  <title>IVT Exploratec 2026 | Encuesta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="IVT Exploratec 2026">
+      <span class="brand-mark">IVT</span>
+      <span>IVTEXPLORATEC <b>2026</b></span>
+    </a>
+    <button class="login-link" id="openLogin" type="button">
+      <span aria-hidden="true">↗</span> Administradores
+    </button>
+  </header>
+
+  <main class="page-shell">
+    <section class="hero">
+      <div class="hero-copy">
+       
+        <h1>Tu opinión también forma parte de la <span>IVT Exploratec.</span></h1>
+        <p>Queremos conocer tu experiencia. Completá esta breve encuesta y ayudanos a seguir creciendo.</p>
+        <div class="hero-meta"><span>⌁</span> IVT Exploratec 2026</div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <div class="art-core">✳</div><span class="art-chip chip-one">INNOVACIÓN</span>
+        <span class="art-chip chip-two">CREATIVIDAD</span><span class="art-chip chip-three">TECNOLOGÍA</span>
+      </div>
+    </section>
+
+    <section class="survey-layout" id="surveySection">
+      <div class="section-intro">
+        <span class="step-label">TU OPINIÓN NOS IMPORTA</span>
+        <h2>Encuesta</h2>
+      
+      </div>
+
+      <form id="surveyForm" class="survey-form">
+        <section class="question-card">
+          <div class="question-heading">
+            <span class="question-number">01</span>
+            <div><h3>¿Qué destacarías de la IVT Exploratec 2026?</h3><p>Podés seleccionar más de una opción.</p></div>
+          </div>
+          <div class="choice-grid" id="highlightsGroup">
+            <label class="choice"><input type="checkbox" name="highlights" value="Proyectos presentados"><span class="custom-check"></span><span>Proyectos presentados</span></label>
+            <label class="choice"><input type="checkbox" name="highlights" value="Aprendizajes demostrados"><span class="custom-check"></span><span>Aprendizajes demostrados</span></label>
+            <label class="choice"><input type="checkbox" name="highlights" value="Desarrollo de robótica aplicada"><span class="custom-check"></span><span>Desarrollo de robótica aplicada</span></label>
+            <label class="choice"><input type="checkbox" name="highlights" value="Expresión oral de los estudiantes"><span class="custom-check"></span><span>Expresión oral de los estudiantes</span></label>
+            <label class="choice"><input type="checkbox" name="highlights" value="Gamificación (videojuegos)"><span class="custom-check"></span><span>Gamificación (videojuegos)</span></label>
+          </div>
+          <p class="field-error" id="highlightsError"></p>
+        </section>
+
+        <section class="question-card">
+          <div class="question-heading">
+            <span class="question-number">02</span>
+            <div><p>Acerca de los proyectos presentados...</p><h3>¿Qué fue lo que más te importó de los proyectos?</h3></div>
+          </div>
+          <div class="radio-list">
+            <label class="radio-choice"><input type="radio" name="answer_projects" value="La problemática que buscaban resolver" required><span>La problemática que buscaban resolver</span></label>
+            <label class="radio-choice"><input type="radio" name="answer_projects" value="Cómo estaban construidos y elaborados" required><span>Cómo estaban construidos y elaborados</span></label>
+            <label class="radio-choice"><input type="radio" name="answer_projects" value="Los materiales y tecnologías utilizados" required><span>Los materiales y tecnologías utilizados</span></label>
+            <label class="radio-choice"><input type="radio" name="answer_projects" value="Su originalidad e innovación" required><span>Su originalidad e innovación</span></label>
+            <label class="radio-choice"><input type="radio" name="answer_projects" value="Su utilidad y posible aplicación en la vida cotidiana" required><span>Su utilidad y posible aplicación en la vida cotidiana</span></label>
+          </div>
+        </section>
+
+        <section class="question-card">
+          <div class="question-heading">
+            <span class="question-number">03</span>
+            <div><p>Acerca de los aprendizajes demostrados...</p><h3>¿Cuál fue la información o el conocimiento que demostraron los estudiantes que más te interesó?</h3></div>
+          </div>
+          <div class="radio-list">
+            <label class="radio-choice"><input type="radio" name="answer_learning" value="Los conocimientos teóricos sobre el tema" required><span>Los conocimientos teóricos sobre el tema</span></label>
+            <label class="radio-choice"><input type="radio" name="answer_learning" value="La investigación realizada" required><span>La investigación realizada</span></label>
+            <label class="radio-choice"><input type="radio" name="answer_learning" value="La aplicación de conocimientos en situaciones reales" required><span>La aplicación de conocimientos en situaciones reales</span></label>
+            <label class="radio-choice"><input type="radio" name="answer_learning" value="La explicación del funcionamiento de sus proyectos" required><span>La explicación del funcionamiento de sus proyectos</span></label>
+            <label class="radio-choice"><input type="radio" name="answer_learning" value="La relación con otras áreas o materias" required><span>La relación con otras áreas o materias</span></label>
+          </div>
+        </section>
+
+        <section class="question-card">
+          <div class="question-heading">
+            <span class="question-number">04</span>
+            <div><p>Acerca del desarrollo de robótica aplicada...</p><h3>¿Qué te pareció la resolución creativa de los estudiantes?</h3></div>
+          </div>
+          <div class="radio-list">
+            <label class="radio-choice"><input type="radio" name="answer_robotics" value="Excelente, muy original e innovadora" required><span>Excelente, muy original e innovadora</span></label>
+            <label class="radio-choice"><input type="radio" name="answer_robotics" value="Muy buena, resolvieron el desafío correctamente" required><span>Muy buena, resolvieron el desafío correctamente</span></label>
+            <label class="radio-choice"><input type="radio" name="answer_robotics" value="Buena, aunque podría mejorarse" required><span>Buena, aunque podría mejorarse</span></label>
+            <label class="radio-choice"><input type="radio" name="answer_robotics" value="Regular, esperaba algo diferente" required><span>Regular, esperaba algo diferente</span></label>
+          </div>
+        </section>
+
+        <section class="question-card">
+          <div class="question-heading">
+            <span class="question-number">05</span>
+            <div><p>Acerca de la expresión oral de los estudiantes...</p><h3>¿Considerás que los alumnos lograron comunicar y explicar sus proyectos correctamente?</h3></div>
+          </div>
+          <div class="radio-list">
+            <label class="radio-choice"><input type="radio" name="answer_oral" value="Sí, con claridad y seguridad" required><span>Sí, con claridad y seguridad</span></label>
+            <label class="radio-choice"><input type="radio" name="answer_oral" value="Sí, aunque podrían mejorar algunos aspectos" required><span>Sí, aunque podrían mejorar algunos aspectos</span></label>
+            <label class="radio-choice"><input type="radio" name="answer_oral" value="Parcialmente, tuvieron algunas dificultades" required><span>Parcialmente, tuvieron algunas dificultades</span></label>
+            <label class="radio-choice"><input type="radio" name="answer_oral" value="No, les costó transmitir sus ideas" required><span>No, les costó transmitir sus ideas</span></label>
+          </div>
+        </section>
+
+        <section class="question-card">
+          <div class="question-heading">
+            <span class="question-number">06</span>
+            <div><p>Acerca de la gamificación (videojuegos)...</p><h3>¿Qué te pareció más interesante de los videojuegos presentados?</h3></div>
+          </div>
+          <div class="radio-list">
+            <label class="radio-choice"><input type="radio" name="answer_games" value="La creatividad y el diseño" required><span>La creatividad y el diseño</span></label>
+            <label class="radio-choice"><input type="radio" name="answer_games" value="La jugabilidad y las dinámicas" required><span>La jugabilidad y las dinámicas</span></label>
+            <label class="radio-choice"><input type="radio" name="answer_games" value="La programación y el desarrollo" required><span>La programación y el desarrollo</span></label>
+            <label class="radio-choice"><input type="radio" name="answer_games" value="La temática y la historia" required><span>La temática y la historia</span></label>
+            <label class="radio-choice"><input type="radio" name="answer_games" value="La interacción y los desafíos" required><span>La interacción y los desafíos</span></label>
+          </div>
+        </section>
+
+
+        <section class="question-card">
+          <div class="question-heading">
+            <span class="question-number">07</span>
+            <div><h3>Subí tu foto de IVT Exploratec 2026</h3></div>
+          </div>
+          <label class="upload-zone" id="uploadZone" for="photoInput">
+            <span class="upload-icon" aria-hidden="true">＋</span>
+            <strong>Seleccionar fotografía</strong>
+            <span>JPG, PNG o WEBP · Máximo 8 MB antes de comprimir</span>
+            <input id="photoInput" type="file" accept="image/jpeg,image/png,image/webp">
+          </label>
+          <div class="photo-preview hidden" id="photoPreview">
+            <img id="previewImage" alt="Vista previa de la fotografía">
+            <div class="photo-info"><strong id="photoName"></strong><span id="photoSize"></span></div>
+            <button class="remove-photo" id="removePhoto" type="button">Quitar</button>
+          </div>
+          <p class="field-error" id="photoError"></p>
+          
+        </section>
+
+        <section class="question-card">
+          <div class="question-heading">
+            <span class="question-number">08</span>
+            <div><h3>Comentarios finales</h3><p>Tus comentarios e ideas nos acompañan en esta Exploratec 2026.</p><p></p></div>
+          </div>
+          <label class="sr-only" for="comments">Comentarios e ideas</label>
+          <textarea id="comments" maxlength="1500" rows="5" placeholder="Compartí tus opiniones, sugerencias o propuestas..."></textarea>
+          <div class="textarea-footer"><span></span><span id="charCount">0 / 1500</span></div>
+        </section>
+
+        <div class="submit-area">
+          <button class="primary-button" id="submitSurvey" type="submit">Enviar encuesta <span>→</span></button>
+          <p>¡Gracias por dedicar unos minutos a compartir tu experiencia!</p>
+        </div>
+      </form>
+
+      <section class="success-card hidden" id="successMessage" aria-live="polite">
+        <div class="success-icon">✓</div><span class="step-label">RESPUESTA REGISTRADA</span>
+        <h2>¡Muchas gracias por participar!</h2>
+        <p>Tu opinión ya forma parte de IVT Exploratec 2026.</p>
+        <button class="secondary-button" id="newResponse" type="button">Enviar otra respuesta</button>
+      </section>
+    </section>
+
+    <section class="admin-section hidden" id="adminSection">
+      <div class="admin-heading">
+        <div><span class="step-label">PANEL PRIVADO</span><h2>Estadísticas</h2><p>Respuestas recibidas de IVT Exploratec 2026.</p></div>
+        <button class="secondary-button" id="logoutButton" type="button">Cerrar sesión</button>
+      </div>
+      <div class="stats-grid">
+        <article class="stat-card"><span>Respuestas recibidas</span><strong id="totalResponses">0</strong><small>Total de encuestas</small></article>
+      </div>
+      <section class="dashboard-card">
+        <div class="dashboard-card-heading"><div><h3>¿Qué destacaron los participantes?</h3><p>Selecciones por tema. Una persona puede elegir varios.</p></div></div>
+        <div id="highlightStats" class="bar-list"><p class="muted">Cargando estadísticas...</p></div>
+      </section>
+      <section class="dashboard-card">
+        <div class="dashboard-card-heading"><div><h3>Respuestas individuales</h3><p>Consultá las respuestas y los comentarios.</p></div><button class="outline-button" id="exportCsv" type="button">↓ Descargar CSV</button></div>
+        <div id="responsesList" class="responses-list"><p class="muted">Cargando respuestas...</p></div>
+      </section>
+    </section>
+  </main>
+
+  <footer><span>IVT EXPLORATEC 2026</span><span>Ideas que transforman el futuro.</span></footer>
+
+  <div class="modal-backdrop hidden" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+    <div class="login-modal">
+      <button class="modal-close" id="closeLogin" aria-label="Cerrar" type="button">×</button>
+      <div class="login-symbol">⌘</div><span class="step-label">ACCESO RESTRINGIDO</span>
+      <h2 id="loginTitle">Panel de administración</h2><p>Ingresá con tu cuenta autorizada para consultar las estadísticas.</p>
+      <form id="loginForm">
+        <label for="email">Correo electrónico</label><input id="email" type="email" autocomplete="username" placeholder="admin@ejemplo.com" required>
+        <label for="password">Contraseña</label><input id="password" type="password" autocomplete="current-password" placeholder="Tu contraseña" required>
+        <p class="field-error" id="loginError"></p>
+        <button class="primary-button full-button" type="submit" id="loginButton">Iniciar sesión <span>→</span></button>
+      </form>
+    </div>
+  </div>
+  <div class="toast hidden" id="toast" role="status"></div>
+  <script type="module" src="app.js?v=4"></script>
+</body>
+</html>
